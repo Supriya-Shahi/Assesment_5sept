@@ -21,23 +21,22 @@ namespace MVC.Controllers
 
 
         [HttpPost]
-        public string InsertData(Registration r)
+        public ActionResult InsertData(Registration r)
         {
-            try
+            if (ModelState.IsValid)
             {
                 using (WebClient webClient = new WebClient())
                 {
                     webClient.Headers.Add("Content-type:application/Json");
                     webClient.Headers.Add("Accept:application/Json");
-                    webClient.UploadString("https://localhost:44393/InsertData", JsonConvert.SerializeObject(r));
-
+                    webClient.UploadString("https://localhost:44307/InsertData", JsonConvert.SerializeObject(r));
+                    return RedirectToAction("Index");
                 }
             }
-            catch (Exception)
+            else
             {
-
+                return View();
             }
-            return "Registered Successfully";
         }
     }
 }

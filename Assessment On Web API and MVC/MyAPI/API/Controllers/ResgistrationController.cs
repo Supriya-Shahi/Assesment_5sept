@@ -14,10 +14,14 @@ namespace API.Controllers
 
         [HttpPost]
         [Route("InsertData")]
-        public void InsertData(Registration r)
+        public string InsertData(Registration r)
         {
             db.Registrations.Add(r);
             db.SaveChanges();
+            int i = db.SaveChanges();
+            if (i > 0)
+                return "sucess";
+            else return "not sucess";
         }
     }
 }
